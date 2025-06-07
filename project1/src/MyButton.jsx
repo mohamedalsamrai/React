@@ -1,4 +1,6 @@
 function MyButton() {
-  return <button className="bg-sky-400 hover:text-amber-50">Click</button>;
+  return (
+    <button class="bg-fuchsia-800 p-1.5 rounded-xl text-white ">Button</button>
+  );
 }
-export default MyButton
+export default MyButton;
