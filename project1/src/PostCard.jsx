@@ -1,9 +1,9 @@
-function PostCard() {
+function PostCard({ title, body }) {
   return (
-    <div class="border-[3px] border-teal-700 py-5 text-center">
-      <h1 class="text-xl font-bold ">Titel post here</h1>
+    <div className="border-[3px] border-teal-700 py-5 text-center">
+      <h1 className="text-xl font-bold ">{title}</h1>
       <hr />
-      <p>Post body</p>
+      <p>{body}</p>
     </div>
   );
 }
