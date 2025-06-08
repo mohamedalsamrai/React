@@ -1,5 +1,6 @@
 import "./App.css";
 import Button from "./Button";
+import Form from "./Form";
 import Input from "./Input";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
         <Button label="Count " />
 
         <Input />
+        <Form />
       </div>
     </>
   );
