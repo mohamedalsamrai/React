@@ -5,6 +5,8 @@ function Form() {
         email: "",
         info: "",
         isStudent: false,
+        course: "",
+        contact: ""
     });
 
     
@@ -39,6 +41,18 @@ function Form() {
         checked={formData.isStudent}
         onChange={(e) => setFormData({ ...formData, isStudent: e.target.checked })}
       />
+      <select name="course" id="course" onChange={(e) => setFormData({ ...formData, course: e.target.value })}>
+        <option value="">Select a course</option>
+        <option value="react">React</option>
+        <option value="angular">Angular</option>
+        <option value="vue">Vue</option>
+      </select>
+      <div>
+       <input type="radio" id="yes" name="contact" value="yes" checked={formData.contact === "yes"} onChange={(e) => setFormData({ ...formData, contact: e.target.value })} />
+       <label htmlFor="yes">Yes</label>
+       <input type="radio" id="no" name="contact" value="no" checked={formData.contact === "no"} onChange={(e) => setFormData({ ...formData, contact: e.target.value })} />
+       <label htmlFor="no">No</label>
+      </div>
       <button
         type="submit"
         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
