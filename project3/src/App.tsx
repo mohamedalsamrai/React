@@ -1,36 +1,92 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import './App.css'
 
 function App() {
-  const [items, setItems] = useState<string[]>(["Item 1", "Item 2", "Item 3"]);
-  const [inputValue, setInputValue] = useState<string>("");
+const [user,setUser]=useState({
+  name: "",
+  phone: "",
+  age: 0,
+  isEmployed: false,
+  salary: 0
+
+})
+
+// Check if all required fields are filled
+const isFormValid = user.name.trim() !== "" && 
+                   user.phone.trim() !== "" && 
+                   user.age > 0 && 
+                   user.salary > 0;
  
   return (
-    <>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        if (inputValue.trim() !== "") {
-          setItems([...items, inputValue]);
-          setInputValue("");
-        }
-      }}>
-        <ul>
-          {items.map((item, index) => (
-            <li key={index}>
-              {item} <button onClick={() => setItems(items.filter((_, i) => i !== index))}>Remove</button> <button onClick={() => setItems(items.map((i, idx) => idx === index ? `${i} (edited)` : i))}>Edit</button>
-            </li>
-          ))}
-        </ul>
-        <label htmlFor="new-item">Add Item:</label>
-        <input
-          type="text"
-          id="new-item"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button type='submit'>Add</button>
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--background)' }}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (isFormValid) {
+            alert('Form submitted successfully!');
+            setUser({
+              name: "",
+              phone: "",
+              age: 0,
+              isEmployed: false,
+              salary: 0,
+            });
+          }
+        }}
+
+      >
+        <div className="form-container">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            placeholder="Name"
+            value={user.name}
+            onChange={(e) => setUser({ ...user, name: e.target.value })}
+            id="name"
+          />
+          <label htmlFor="phone">Phone</label>
+          <input
+            type="text"
+            placeholder="Phone"
+            value={user.phone}
+            onChange={(e) => setUser({ ...user, phone: e.target.value })}
+            id="phone"
+          />
+          <label htmlFor="age">Age</label>
+          <input
+            type="number"
+            placeholder="Age"
+            value={user.age}
+            onChange={(e) => setUser({ ...user, age: Number(e.target.value) })}
+            id="age"
+          />
+          <label htmlFor="isEmployed" className="checkbox-label">
+            <input
+              type="checkbox"
+              checked={user.isEmployed}
+              onChange={(e) => setUser({ ...user, isEmployed: e.target.checked })}
+              id="isEmployed"
+            />
+            Are you employed?
+          </label>
+          <label htmlFor="salary">Salary</label>
+          <select
+            name="salary"
+            id="salary"
+            value={user.salary}
+            onChange={(e) => setUser({ ...user, salary: Number(e.target.value) })}
+          >
+            <option value="0">0</option>
+            <option value="10000">10,000</option>
+            <option value="20000">20,000</option>
+            <option value="30000">30,000</option>
+            <option value="40000">40,000</option>
+            <option value="50000">50,000</option>
+          </select>
+        </div>
+        <button type="submit" disabled={!isFormValid}>Submit</button>
       </form>
-    </>
+    </div>
   )
 }
 
