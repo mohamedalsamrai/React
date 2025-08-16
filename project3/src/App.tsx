@@ -1,5 +1,6 @@
 import {  useState } from 'react';
 import './App.css'
+import PhoneInput from './components/PhoneInput';
 
 function App() {
 const [user,setUser]=useState({
@@ -45,11 +46,10 @@ const isFormValid = user.name.trim() !== "" &&
             id="name"
           />
           <label htmlFor="phone">Phone</label>
-          <input
-            type="text"
-            placeholder="Phone"
+          <PhoneInput
             value={user.phone}
-            onChange={(e) => setUser({ ...user, phone: e.target.value })}
+            onChange={(value) => setUser({ ...user, phone: value })}
+            placeholder="(555) 123-4567"
             id="phone"
           />
           <label htmlFor="age">Age</label>
