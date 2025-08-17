@@ -1,23 +1,10 @@
-import {  useState } from 'react';
 import './App.css'
 import PhoneInput from './components/PhoneInput';
+import { FormProvider, useFormContext } from './context/FormContext';
 
-function App() {
-const [user,setUser]=useState({
-  name: "",
-  phone: "",
-  age: 0,
-  isEmployed: false,
-  salary: 0
+const FormContent = () => {
+  const { user, updateUser, resetUser, isFormValid } = useFormContext();
 
-})
-
-// Check if all required fields are filled
-const isFormValid = user.name.trim() !== "" && 
-                   user.phone.trim() !== "" && 
-                   user.age > 0 && 
-                   user.salary > 0;
- 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--background)' }}>
       <form
@@ -25,16 +12,9 @@ const isFormValid = user.name.trim() !== "" &&
           e.preventDefault();
           if (isFormValid) {
             alert('Form submitted successfully!');
-            setUser({
-              name: "",
-              phone: "",
-              age: 0,
-              isEmployed: false,
-              salary: 0,
-            });
+            resetUser();
           }
         }}
-
       >
         <div className="form-container">
           <label htmlFor="name">Name</label>
@@ -42,13 +22,11 @@ const isFormValid = user.name.trim() !== "" &&
             type="text"
             placeholder="Name"
             value={user.name}
-            onChange={(e) => setUser({ ...user, name: e.target.value })}
+            onChange={(e) => updateUser({ name: e.target.value })}
             id="name"
           />
           <label htmlFor="phone">Phone</label>
           <PhoneInput
-            value={user.phone}
-            onChange={(value) => setUser({ ...user, phone: value })}
             placeholder="(555) 123-4567"
             id="phone"
           />
@@ -57,14 +35,14 @@ const isFormValid = user.name.trim() !== "" &&
             type="number"
             placeholder="Age"
             value={user.age}
-            onChange={(e) => setUser({ ...user, age: Number(e.target.value) })}
+            onChange={(e) => updateUser({ age: Number(e.target.value) })}
             id="age"
           />
           <label htmlFor="isEmployed" className="checkbox-label">
             <input
               type="checkbox"
               checked={user.isEmployed}
-              onChange={(e) => setUser({ ...user, isEmployed: e.target.checked })}
+              onChange={(e) => updateUser({ isEmployed: e.target.checked })}
               id="isEmployed"
             />
             Are you employed?
@@ -74,7 +52,7 @@ const isFormValid = user.name.trim() !== "" &&
             name="salary"
             id="salary"
             value={user.salary}
-            onChange={(e) => setUser({ ...user, salary: Number(e.target.value) })}
+            onChange={(e) => updateUser({ salary: Number(e.target.value) })}
           >
             <option value="0">0</option>
             <option value="10000">10,000</option>
@@ -87,7 +65,15 @@ const isFormValid = user.name.trim() !== "" &&
         <button type="submit" disabled={!isFormValid}>Submit</button>
       </form>
     </div>
-  )
+  );
+};
+
+function App() {
+  return (
+    <FormProvider>
+      <FormContent />
+    </FormProvider>
+  );
 }
 
 export default App

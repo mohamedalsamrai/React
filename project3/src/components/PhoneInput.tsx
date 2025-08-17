@@ -1,13 +1,13 @@
 import React from 'react';
+import { useFormContext } from '../context/FormContext';
 
 interface PhoneInputProps {
-  value: string;
-  onChange: (value: string) => void;
   placeholder?: string;
   id?: string;
 }
 
-const PhoneInput: React.FC<PhoneInputProps> = ({ value, onChange, placeholder = "Phone", id }) => {
+const PhoneInput: React.FC<PhoneInputProps> = ({ placeholder = "Phone", id }) => {
+  const { user, updateUser } = useFormContext();
   const formatPhoneNumber = (input: string) => {
     // Remove all non-digits
     const digits = input.replace(/\D/g, '');
@@ -24,14 +24,14 @@ const PhoneInput: React.FC<PhoneInputProps> = ({ value, onChange, placeholder = 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formatted = formatPhoneNumber(e.target.value);
-    onChange(formatted);
+    updateUser({ phone: formatted });
   };
 
   return (
     <input
       type="text"
       placeholder={placeholder}
-      value={value}
+      value={user.phone}
       onChange={handleChange}
       id={id}
       maxLength={14} // (XXX) XXX-XXXX format
