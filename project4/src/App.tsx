@@ -1,6 +1,4 @@
-
-import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Link } from 'react-router-dom'
 
 function App() {
 
@@ -16,7 +14,22 @@ function App() {
 
 
 function Home() {
-  return <h1>Home</h1>
+  return (
+    <div>
+      <nav className='flex justify-center'>
+        <button className='bg-blue-500 text-white p-2 rounded-md m-2'>  
+          <Link to="/">Home</Link>
+        </button>
+        <button className='bg-blue-500 text-white p-2 rounded-md m-2'>
+          <Link to="/about">About</Link>
+        </button>
+        <button className='bg-blue-500 text-white p-2 rounded-md m-2'>
+          <Link to="/contact">Contact</Link>  
+        </button>
+      </nav>
+      <h1>Home</h1>
+    </div>
+  )
 }
 
 function About() {
