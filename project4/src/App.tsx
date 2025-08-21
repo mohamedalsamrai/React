@@ -1,15 +1,18 @@
 import { Routes, Route, Link, Outlet, useParams } from 'react-router-dom'
+import { ProductesProvider, useProductesContext } from './contexts/ProductesContext'
 
 function App() {
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} /> 
-      <Route path="/products" element={<Products />} />
-      <Route path="/products/:id" element={<Product />} />
-    </Routes>
+    <ProductesProvider>  
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} /> 
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<Product />} />
+      </Routes>
+      </ProductesProvider>
   )
 }
 
@@ -43,18 +46,29 @@ function Contact() {
 }
 
 function Products() {
+  const { products, setProducts } = useProductesContext()
+  
+  const addProduct = () => {
+    const newId = Math.max(...products.map(p => p.id)) + 1
+    const newProduct = { 
+      id: newId, 
+      name: `Product ${newId}`, 
+      price: newId * 100 
+    }
+    setProducts([...products, newProduct])
+  }
+
   return (
     <div>
       <h1>Products</h1>
-      <button className='bg-blue-500 text-white p-2 rounded-md m-2'>
-        <Link to="/products/1">Product 1</Link>
+      <button className='bg-blue-500 text-white p-2 rounded-md m-2' onClick={addProduct}>
+        Add Product
       </button>
-      <button className='bg-blue-500 text-white p-2 rounded-md m-2'>
-        <Link to="/products/2">Product 2</Link>  
-      </button>
-      <button className='bg-blue-500 text-white p-2 rounded-md m-2'>
-        <Link to="/products/3">Product 3</Link>
-      </button>
+      {products.map((product , index) => (
+        <button className='bg-blue-500 text-white p-2 rounded-md m-2' key={index}>
+          <Link to={`/products/${product.id}`}>{product.name}</Link>
+        </button>
+      ))}
       <Outlet />
     </div>
   )
