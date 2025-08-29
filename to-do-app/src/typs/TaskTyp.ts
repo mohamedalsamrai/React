@@ -2,6 +2,7 @@ export type Task = {
     title: string;
     date: string;
     id: string;
+    isDone: boolean;
 }
 export type TaskContextType = {
     tasks: Task[];

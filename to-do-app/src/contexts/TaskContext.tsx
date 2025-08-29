@@ -12,8 +12,15 @@ export const useTaskContext = () => {
   return context;
 };
 export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    try {
+      const raw = localStorage.getItem("tasks");
+      return raw ? (JSON.parse(raw) as Task[]) : [];
+    } catch {
+      return [];
+    }
+  });
+  localStorage.setItem("tasks", JSON.stringify(tasks));
   const addTask = (task: Task) => {
     setTasks((prevTasks) => [...prevTasks, task]);
   };
@@ -27,6 +34,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
   const deleteTask = (id: string) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
+
   const taskType = { tasks, addTask, updateTask, deleteTask };
   return (
     <TaskContext.Provider value={taskType}>{children}</TaskContext.Provider>

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useTaskContext } from "../contexts/TaskContext";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export default function AddInput() {
   const { addTask } = useTaskContext();
-   const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("");
 
   return (
     <div className="flex flex-row-reverse  justify-center w-[90%] m-auto sm:w-[70%] md:w-[60%] mb-5 gap-4">
@@ -22,7 +22,12 @@ export default function AddInput() {
       <button
         onClick={() => {
           if (title.trim()) {
-            addTask({ title, date: new Date().toISOString().slice(0, 10), id: uuidv4() });
+            addTask({
+              title,
+              date: new Date().toISOString().slice(0, 10),
+              id: uuidv4(),
+              isDone: false,
+            });
             setTitle("");
           }
         }}
