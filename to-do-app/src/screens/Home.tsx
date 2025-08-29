@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import AddInput from "../componets/AddInput";
 import Card from "../componets/Card";
 import { useTaskContext } from "../contexts/TaskContext";
@@ -8,12 +8,13 @@ function Home() {
   const [todosType, setTodosType] = useState<
     "all" | "completed" | "incomplete"
   >("all");
-  const filteredTasks =
-    todosType === "completed"
+  const filteredTasks = useMemo(() => {
+    return todosType === "completed"
       ? tasks.filter((task) => task.isDone)
       : todosType === "incomplete"
       ? tasks.filter((task) => !task.isDone)
       : tasks;
+  }, [todosType, tasks]);
   return (
     <>
       <div className="">
