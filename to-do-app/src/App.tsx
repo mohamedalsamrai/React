@@ -1,6 +1,11 @@
+import AddInput from "./componets/AddInput";
 import Card from "./componets/Card";
+import { useTaskContext } from "./contexts/TaskContext";
+
 
 function App() {
+  const { tasks } = useTaskContext();
+
   return (
     <>
       <div className="">
@@ -27,12 +32,13 @@ function App() {
             </a>
           </div>
         </nav>
-      </div >
+      </div>
       <div className="h-10"></div>
+      <AddInput/>
       <div className="flex flex-col justify-center gap-4 w-[90%] m-auto sm:w-[70%] md:w-[60%]">
-        <Card title="عنوان المهمة" dateDone="2024-06-01">
-          
-        </Card>
+        {tasks.map((task) => (
+          <Card key={task.id} title={task.title} dateDone={task.date} />
+        ))}
       </div>
     </>
   );

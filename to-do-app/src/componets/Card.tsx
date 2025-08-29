@@ -1,7 +1,6 @@
 import type { JSX } from "react";
 
 export default function Card({title, dateDone}: {title:string, dateDone:string}):JSX.Element {
-
 return (
     <>
     <div className="flex flex-row-reverse justify-between w-full bg-blue-900 p-4 rounded-lg items-center">
