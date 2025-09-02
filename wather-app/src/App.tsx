@@ -34,8 +34,8 @@ function App() {
         </div>
         
       </div>
-     <div className="flex justify-end items-end w-[68%] mt-3">
-     <button className=" flex text-white hover:text-blue-900 hover:bg-white rounded-full py-2 px-4 checked:bg-white cursor-pointer"> العربية</button>
+     <div className="flex justify-end items-end w-full max-w-md mt-3 ml-[-60px]">
+     <button className="flex text-white hover:text-blue-900 hover:bg-white rounded-full py-2 px-4 transition-colors cursor-pointer"> العربية</button>
      </div>
     </div>
   );
